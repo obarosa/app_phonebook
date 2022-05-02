@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "appphonebook",
+    "slug": "appphonebook",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
