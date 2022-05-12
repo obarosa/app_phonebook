@@ -138,12 +138,6 @@ const styles = StyleSheet.create({
         height: 23,
         marginRight: 15,
     },
-    imagemStilo: {
-        // display: 'flex',
-        // justifyContent: 'center',
-        paddingLeft: 300,
-        marginTop: -30,
-    },
     containerImagens: {
         flexDirection: 'row',
         marginVertical: 'auto',
@@ -153,6 +147,11 @@ const styles = StyleSheet.create({
     // Linha
     allList: {
         padding: 10,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingRight: 20,
     },
 });
 

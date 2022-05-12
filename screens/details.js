@@ -5,7 +5,7 @@ const Details = ({ route }) => {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.contactsWrapper}>
-                <View style={{ paddingHorizontal: 15, }}>
+                <View style={{ paddingHorizontal: 10, maxWidth:'95%' }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15, }}>
                             Username:
