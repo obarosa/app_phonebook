@@ -43,17 +43,17 @@ const Home = () => {
                 <View>
                     <Text style={styles.listItemContacts}>
                         <Link to={{ screen: 'Details', params: { id: item.id, username: item.username, email: item.email, prinome: item.pri_nome, apelido: item.apelido, telemovel: item.nmr_telemovel, escritorio: item.nmr_escritorio, telefone: item.nmr_casa, notas: item.notas } }}>
-                            <Text style={{fontSize:16,fontWeight:'bold',}}>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', }}>
                                 {item.username}{" "}
                             </Text>
                         </Link>
                     </Text>
-                    <View style={{ flexDirection: 'row', marginTop:5, zIndex:100}}>
-                        <Text onPress={() => { Linking.openURL(`tel:${item.nmr_telemovel}`); }} style={{ fontSize: 12, color:'grey' }}>
+                    <View style={{ flexDirection: 'row', marginTop: 5, zIndex: 100 }}>
+                        <Text onPress={() => { Linking.openURL(`tel:${item.nmr_telemovel}`); }} style={{ fontSize: 12, color: 'grey' }}>
                             {item.nmr_telemovel}{" "}
                         </Text>
                         <Text>  </Text>
-                        <Text onPress={() => { Linking.openURL(`tel:${item.nmr_escritorio}`); }} style={{ fontSize: 12, color:'grey'}}>
+                        <Text onPress={() => { Linking.openURL(`tel:${item.nmr_escritorio}`); }} style={{ fontSize: 12, color: 'grey' }}>
                             {item.nmr_escritorio}{" "}
                         </Text>
                     </View>
@@ -64,20 +64,20 @@ const Home = () => {
                         <TouchableHighlight onPress={() => { Linking.openURL(`tel:${item.nmr_telemovel}`); }}>
                             <Image
                                 style={styles.tinyLogo}
-                                source={require('C:/Estagio/appphonebook_v2/src/imgs/mobile-regular-24.png')}
+                                source={require('../src/imgs/mobile-regular-24.png')}
                             />
                         </TouchableHighlight>
                         <TouchableHighlight onPress={() => { Linking.openURL(`tel:${item.nmr_escritorio}`); }}>
                             <Image
                                 style={styles.tinyLogo}
-                                source={require('C:/Estagio/appphonebook_v2/src/imgs/phone-solid-24.png')}
+                                source={require('../src/imgs/phone-solid-24.png')}
                             />
                         </TouchableHighlight>
                         <TouchableHighlight>
                             <Link to={{ screen: 'Details', params: { id: item.id, username: item.username, email: item.email, prinome: item.pri_nome, apelido: item.apelido, telemovel: item.nmr_telemovel, escritorio: item.nmr_escritorio, telefone: item.nmr_casa, notas: item.notas } }}>
                                 <Image
                                     style={styles.tinyLogoFirst}
-                                    source={require('C:/Estagio/appphonebook_v2/src/imgs/info-circle-regular-24.png')}
+                                    source={require('../src/imgs/info-circle-regular-24.png')}
                                 />
                             </Link>
                         </TouchableHighlight>
@@ -117,6 +117,7 @@ const Home = () => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#f2f2f2',
+        marginBottom: 150,
     },
     contactos: {
         flexDirection: 'row',
@@ -135,13 +136,13 @@ const styles = StyleSheet.create({
     tinyLogo: {
         width: 23,
         height: 23,
-        marginRight:15,
+        marginRight: 15,
     },
     imagemStilo: {
         // display: 'flex',
         // justifyContent: 'center',
-        paddingLeft:300,
-        marginTop:-30,
+        paddingLeft: 300,
+        marginTop: -30,
     },
     containerImagens: {
         flexDirection: 'row',
@@ -150,9 +151,9 @@ const styles = StyleSheet.create({
         maxWidth: 100,
     },
     // Linha
-    allList:{
-        padding:10,
-    },  
+    allList: {
+        padding: 10,
+    },
 });
 
 export default Home;
