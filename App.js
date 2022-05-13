@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './screens/home';
 import DetailsScreen from './screens/details';
+import CreateScreen from './screens/create';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,10 @@ const MyStack = () => {
           component={DetailsScreen}
           options={{ title: 'Detalhes' }}
         />
+        <Stack.Screen
+          name='Create'
+          component={CreateScreen}
+          options={{title:'Criar Contacto'}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

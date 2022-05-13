@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, ScrollView, View, TouchableHighlight, Linking, Button, Image, } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, TouchableHighlight, Linking, Image, } from 'react-native';
 
 const Details = ({ route }) => {
     return (

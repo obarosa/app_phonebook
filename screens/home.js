@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, Text, SafeAreaView, TextInput, StyleSheet, Linking, TouchableHighlight, FlatList } from 'react-native';
+import {
+    View, Image, Text, SafeAreaView, TextInput, StyleSheet,
+    Linking, TouchableHighlight, FlatList, RefreshControl
+} from 'react-native';
 import { Link } from '@react-navigation/native';
 
 import api from '../services/fetchcontacts';
@@ -93,17 +96,33 @@ const Home = () => {
         )
     }
 
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+    }
+    const [refreshing, setRefreshing] = useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
+
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <TextInput
-                    style={styles.textInputStyle}
-                    value={search}
-                    placeholder="Pesquisar Contactos"
-                    underlineColorAndroid="transparent"
-                    onChangeText={(text) => searchFilter(text)}
-                />
+                <View style={{ display: 'flex', flexDirection: 'row', alignSelf: 'auto', justifyContent: 'space-between' }}>
+                    <TextInput
+                        style={styles.textInputStyle}
+                        value={search}
+                        placeholder="Pesquisar Contactos"
+                        underlineColorAndroid="transparent"
+                        onChangeText={(text) => searchFilter(text)}
+                    />
+                    <Link to={{ screen: 'Create' }} style={{ alignSelf: 'center', marginRight: 20 }}>
+                        <Image style={{ width: 35, height: 35 }}
+                            source={require('../src/imgs/user-plus-solid-24.png')} />
+                    </Link>
+                </View>
                 <FlatList
+                    refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                     data={filterdData}
                     keyExtractor={({ id }, index) => id}
                     ItemSeparatorComponent={ItemSeparatorView}
@@ -126,6 +145,7 @@ const styles = StyleSheet.create({
     },
     textInputStyle: {
         height: 50,
+        width: '80%',
         borderWidth: 1,
         paddingLeft: 20,
         margin: 5,
