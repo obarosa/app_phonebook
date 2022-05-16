@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, TextInput, Button, View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Image } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { Link } from '@react-navigation/native';
 
 import api from '../services/fetchcontacts';
 
-const Create = () => {
+const Create = ({ navigation, route }) => {
 
     const [username, onChangeUsername] = useState('');
     const [nome, onChangeNome] = useState('');
@@ -12,6 +13,7 @@ const Create = () => {
     const [email, onChangeEmail] = useState('');
     const [telemovel, onChangeTelemovel] = useState('');
     const [tipo, setTipo] = useState("Nenhum");
+    const [grupo] = useState("Nenhum");
     const [notas, onChangeNotas] = useState('');
 
     const [usarNmrTelemovel] = useState(0);
@@ -25,13 +27,12 @@ const Create = () => {
             email,
             nmrTelemovel: telemovel,
             tipo,
+            grupo,
             usaNmrTelemovel: usarNmrTelemovel,
             usaNmrTlfEscrt: usarNmrEscritorio,
             notas,
         }).then(function (response) {
             console.log('DADOS ENVIADOS', response);
-        }).catch(function (error) {
-            console.log('DEU ASNEIRA', error);
         });
     }
 
@@ -44,7 +45,7 @@ const Create = () => {
                 placeholder="Username"
             />
             <Text style={styles.obrigatorio}>Obrigatório</Text>
-            <View style={{ display: 'flex', flexDirection: 'row' }}>
+            <View style={{ display: 'flex', flexDirection: 'row', width: '102%' }}>
                 <TextInput
                     style={styles.input2}
                     onChangeText={onChangeNome}
@@ -52,7 +53,7 @@ const Create = () => {
                     placeholder="Primeiro Nome"
                 />
                 <TextInput
-                    style={styles.input2}
+                    style={styles.input3}
                     onChangeText={onChangeApelido}
                     value={apelido}
                     placeholder="Apelido"
@@ -93,6 +94,11 @@ const Create = () => {
                 placeholder="Notas"
             />
             <Button title="Adicionar Contacto" onPress={() => postContacto()} />
+            <Link to={{ screen: 'Scanner' }}>
+                <Image style={styles.imgQrCode}
+                    source={require('../src/imgs/qr-scan-regular-24.png')} />
+            </Link>
+            {/* <Text>This is {route.params.name}'s profile</Text> */}
         </SafeAreaView>
     );
 };
@@ -111,13 +117,22 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         flex: 1,
+        width: 50,
     },
-    obrigatorio:{
-        marginLeft:14,
-        marginTop:-12,
-        fontSize:9,
-        color:'red',
-    },  
+    input3: {
+        height: 40,
+        marginVertical: 12,
+        borderWidth: 1,
+        padding: 10,
+        flex: 1,
+        width: 50,
+    },
+    obrigatorio: {
+        marginLeft: 14,
+        marginTop: -12,
+        fontSize: 9,
+        color: 'red',
+    },
     inputTipo: {
         margin: 12,
         padding: 10,
@@ -125,8 +140,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
     },
-    yau:{
-        display:'none',
-    }
 });
+
 export default Create;
