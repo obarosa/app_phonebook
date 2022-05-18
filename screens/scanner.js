@@ -28,12 +28,15 @@ const Scanner = ({ navigation }) => {
             if (arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('tel'))) {
                 if (arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('cell'))) {
                     var telemovel = arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('cell')).split(':')[1]
+                    if (telemovel.length === 13) { telemovel = telemovel.slice(4) }
                 }
                 if (arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('home'))) {
                     var telemovel = arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('home')).split(':')[1]
+                    if (telemovel.length === 13) { telemovel = telemovel.slice(4) }
                 }
                 if (arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('work'))) {
                     var escritorio = arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('work')).split(':')[1]
+                    if (escritorio.length === 13) { escritorio = telemovel.slice(4) }
                 }
             }
 
@@ -53,46 +56,72 @@ const Scanner = ({ navigation }) => {
             var mecard_email = arr.split(';').map(d => d.toLowerCase()).slice(0, -1).find(e => e.includes('email')).split(':')[1]
 
             let yau = arr.split(';')
-
             let teles = [];
             for (let i = 0; i < yau.length; i++) {
                 let element = yau[i].slice(4);
                 if (yau[i].includes('TEL')) {
-                    if (teles.length === 13) {
-                        teles.push(element.slice(4));
-                    } else {
-                        teles.push(element);
-                    }
+                    teles.push(element);
+                }
+            }
+            if (teles.length > 1) {
+                if (teles[0].length === 13) {
+                    teles[0] = teles[0].slice(4)
+                }
+                if (teles[1].length === 13) {
+                    teles[1] = teles[1].slice(4)
+                }
+            } else {
+                if (teles[0].length === 13) {
+                    teles[0] = teles[0].slice(4)
                 }
             }
             console.log(teles);
 
             var mecard_telemovel
-            var mecar_escritorio
+            var mecard_escritorio
             for (let j = 0; j < teles.length; j++) {
                 if (teles[j].charAt(0) === '9') {
                     mecard_telemovel = teles[j];
                 } else if (teles[j].charAt(0) === '2') {
-                    mecar_escritorio = teles[j];
+                    mecard_escritorio = teles[j];
                 }
             }
 
-            console.log(mecar_escritorio);
+            console.log(mecard_escritorio);
+            console.log(mecard_telemovel);
             console.log(mecard_email);
         }
-
-        Alert.alert(
-            "Contacto Detectado!",
-            `${[data]}`,
-            [
-                {
-                    text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
-                },
-                { text: "Criar Contacto", onPress: () => navigation.navigate('Create', { name: 'Jane' }) }
-            ]
-        );
+        if (arr.includes('BEGIN:VCARD')) {
+            console.log('VCARD')
+            Alert.alert(
+                "Contacto Detectado!",
+                "",
+                // `${[data]}`,
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                    },
+                    { text: "Criar Contacto", onPress: () => navigation.navigate('Vcard', { username: `${[username]}`, priNome: `${[priNome]}`, apelido: `${[apelido]}`, email: `${[email]}`, telemovel: `${[telemovel]}`, escritorio: `${[escritorio]}` }) }
+                ]
+            );
+        } else if (arr.includes('MECARD')) {
+            console.log('MECARD')
+            Alert.alert(
+                "Contacto Detectado!",
+                "",
+                // `${[data]}`,
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                    },
+                    { text: "Criar Contacto", onPress: () => navigation.navigate('Mecard', { username: `${[mecard_username]}`, priNome: `${[mecard_priNome]}`, apelido: `${[mecard_apelido]}`, email: `${[mecard_email]}`, telemovel: `${[mecard_telemovel]}`, escritorio: `${[mecard_escritorio]}` }) }
+                ]
+            );
+        }
     };
 
     if (hasPermission === null) {

@@ -3,16 +3,16 @@ import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Image, Alert }
 import { Picker } from '@react-native-picker/picker';
 import { Link } from '@react-navigation/native';
 
-import api from '../services/fetchcontacts';
+import api from '../../services/fetchcontacts';
 
-const Create = ({ navigation }) => {
+const CreateVcard = ({ navigation, route }) => {
 
-    const [username, onChangeUsername] = useState('');
-    const [nome, onChangeNome] = useState('');
-    const [apelido, onChangeApelido] = useState('');
-    const [email, onChangeEmail] = useState('');
-    const [telemovel, onChangeTelemovel] = useState('');
-    const [escritorio, onChangeEscritorio] = useState('');
+    const [username, onChangeUsername] = useState(route.params.username);
+    const [nome, onChangeNome] = useState(route.params.priNome);
+    const [apelido, onChangeApelido] = useState(route.params.apelido);
+    const [email, onChangeEmail] = useState(route.params.email);
+    const [telemovel, onChangeTelemovel] = useState(route.params.telemovel);
+    const [escritorio, onChangeEscritorio] = useState(route.params.escritorio);
     const [tipo, setTipo] = useState("Nenhum");
     const [grupo] = useState("Nenhum");
     const [notas, onChangeNotas] = useState('');
@@ -118,7 +118,7 @@ const Create = ({ navigation }) => {
             <Button title="Adicionar Contacto" onPress={() => postContacto()} />
             <Link to={{ screen: 'Scanner' }}>
                 <Image style={styles.imgQrCode}
-                    source={require('../src/imgs/qr-scan-regular-24.png')} />
+                    source={require('../../src/imgs/qr-scan-regular-24.png')} />
             </Link>
         </SafeAreaView>
     );
@@ -163,4 +163,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Create;
+export default CreateVcard;

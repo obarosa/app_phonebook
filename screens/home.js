@@ -8,11 +8,21 @@ import { Link } from '@react-navigation/native';
 import api from '../services/fetchcontacts';
 
 
-const Home = () => {
+const Home = ({ navigation }) => {
     const [filterdData, setfilterdData] = useState([]);
     const [masterData, setmasterData] = useState([]);
     const [search, setSearch] = useState('');
+    const [refreshing, setRefreshing] = useState(false);
 
+    const getContacts = () => {
+        api.get("/api/apiappphonebook").then(function (response) {
+            // console.log(response.data);
+            setfilterdData(response.data);
+            setmasterData(response.data)
+        }).catch(function (response) {
+            console.log(response);
+        });
+    }
     useEffect(() => {
         api.get("/api/apiappphonebook").then(function (response) {
             // console.log(response.data);
@@ -42,7 +52,7 @@ const Home = () => {
 
     const ItemView = ({ item }) => {
         return (
-            <View style={styles.allList} key={item.id} >
+            <View style={styles.allList} key={item.id}>
                 <View>
                     <Text style={styles.listItemContacts}>
                         <Link to={{ screen: 'Details', params: { id: item.id, username: item.username, email: item.email, prinome: item.pri_nome, apelido: item.apelido, telemovel: item.nmr_telemovel, escritorio: item.nmr_escritorio, telefone: item.nmr_casa, notas: item.notas } }}>
@@ -64,18 +74,30 @@ const Home = () => {
 
                 <View style={styles.imagemStilo}>
                     <View style={styles.containerImagens}>
-                        <TouchableHighlight onPress={() => { Linking.openURL(`tel:${item.nmr_telemovel}`); }}>
-                            <Image
-                                style={styles.tinyLogo}
-                                source={require('../src/imgs/mobile-regular-24.png')}
-                            />
-                        </TouchableHighlight>
-                        <TouchableHighlight onPress={() => { Linking.openURL(`tel:${item.nmr_escritorio}`); }}>
+                        {!item.nmr_telemovel ? (<Text>{""}</Text>) :
+                            (<TouchableHighlight onPress={() => { Linking.openURL(`tel:${item.nmr_telemovel}`); }}>
+                                <Image
+                                    style={styles.tinyLogo}
+                                    source={require('../src/imgs/mobile-regular-24.png')}
+                                />
+                            </TouchableHighlight>
+                            )
+                        }
+                        {!item.nmr_escritorio ? (<Text>{""}</Text>) :
+                            (<TouchableHighlight onPress={() => { Linking.openURL(`tel:${item.nmr_escritorio}`); }}>
+                                <Image
+                                    style={styles.tinyLogo}
+                                    source={require('../src/imgs/phone-solid-24.png')}
+                                />
+                            </TouchableHighlight>
+                            )
+                        }
+                        {/* <TouchableHighlight onPress={() => { Linking.openURL(`tel:${item.nmr_escritorio}`); }}>
                             <Image
                                 style={styles.tinyLogo}
                                 source={require('../src/imgs/phone-solid-24.png')}
                             />
-                        </TouchableHighlight>
+                        </TouchableHighlight> */}
                         <TouchableHighlight>
                             <Link to={{ screen: 'Details', params: { id: item.id, username: item.username, email: item.email, prinome: item.pri_nome, apelido: item.apelido, telemovel: item.nmr_telemovel, escritorio: item.nmr_escritorio, telefone: item.nmr_casa, notas: item.notas } }}>
                                 <Image
@@ -99,10 +121,10 @@ const Home = () => {
     const wait = (timeout) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
     }
-    const [refreshing, setRefreshing] = useState(false);
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
-        wait(2000).then(() => setRefreshing(false));
+        getContacts();
+        wait(500).then(() => setRefreshing(false));
     }, []);
 
     return (
