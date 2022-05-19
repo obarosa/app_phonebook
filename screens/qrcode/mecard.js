@@ -76,6 +76,7 @@ const CreateMecard = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={{ flex: 1, maxWidth: '95%', }}>
+            <Text style={styles.inputHeader}>Username:</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeUsername}
@@ -83,6 +84,7 @@ const CreateMecard = ({ navigation, route }) => {
                 placeholder="Username"
             />
             <Text style={styles.obrigatorio}>Obrigatório</Text>
+            <Text style={styles.inputHeader}>E-mail:</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeEmail}
@@ -91,6 +93,7 @@ const CreateMecard = ({ navigation, route }) => {
                 placeholder="E-mail"
             />
             <Text style={styles.obrigatorio}>Obrigatório</Text>
+            <Text style={styles.inputHeader}>Nome:</Text>
             <View style={{ display: 'flex', flexDirection: 'row', width: '102%' }}>
                 <TextInput
                     style={styles.input2}
@@ -105,6 +108,7 @@ const CreateMecard = ({ navigation, route }) => {
                     placeholder="Apelido"
                 />
             </View>
+            <Text style={styles.inputHeader}>Contactos:</Text>
             <View style={{ display: 'flex', flexDirection: 'row', width: '102%' }}>
                 <TextInput
                     style={styles.input2}
@@ -129,6 +133,7 @@ const CreateMecard = ({ navigation, route }) => {
                     onPress={onPressRadioButton}
                 />
             </View>
+            <Text style={styles.inputHeader}>Notas:</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeNotas}
@@ -149,6 +154,12 @@ const CreateMecard = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+    inputHeader: {
+        paddingTop: 7,
+        marginLeft: 14,
+        marginBottom: -8,
+        fontWeight: 'bold',
+    },
     input: {
         height: 40,
         margin: 12,
@@ -179,8 +190,7 @@ const styles = StyleSheet.create({
         color: 'red',
     },
     inputTipo: {
-        margin: 12,
-        padding: 10,
+        margin: 14,
         flexDirection: 'row',
         alignItems: 'center',
         alignContent: 'center',

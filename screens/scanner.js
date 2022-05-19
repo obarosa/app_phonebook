@@ -25,27 +25,27 @@ const Scanner = ({ navigation }) => {
             var apelido = username.split(' ')[1]; // Last Name
             var email = arr.split('\n').find(d => d.includes('EMAIL')).split(':')[1]; // Email
 
-            if (arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('tel'))) {
-                if (arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('cell'))) {
-                    var telemovel = arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('cell')).split(':')[1]
-                    if (telemovel.length === 13) { telemovel = telemovel.slice(4) }
+            var mobiles = []
+            var arrayi = arr.split('\n')
+            for (let g = 0; g < arrayi.length; g++) {
+                if (arrayi[g].includes('TEL')) {
+                    mobiles.push(arrayi[g].split(':')[1])
                 }
-                if (arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('home'))) {
-                    var telemovel = arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('home')).split(':')[1]
-                    if (telemovel.length === 13) { telemovel = telemovel.slice(4) }
+            }
+            var telemovel
+            var escritorio
+            for (let y = 0; y < mobiles.length; y++) {
+                console.log(mobiles[y])
+                if (mobiles[y].length === 13) {
+                    mobiles[y] = mobiles[y].slice(4);
                 }
-                if (arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('work'))) {
-                    var escritorio = arr.split('\n').map(e => e.toLowerCase()).slice(2, -1).find(d => d.includes('work')).split(':')[1]
-                    if (escritorio.length === 13) { escritorio = telemovel.slice(4) }
+                if (mobiles[y].charAt(0) === '9') {
+                    telemovel = mobiles[y];
+                } else if (mobiles[y].charAt(0) === '2') {
+                    escritorio = mobiles[y];
                 }
             }
 
-            console.log(priNome);
-            console.log(apelido);
-            console.log(username);
-            console.log(email);
-            console.log(telemovel);
-            console.log(escritorio);
             console.log(arr);
         }
 
@@ -76,7 +76,6 @@ const Scanner = ({ navigation }) => {
                     teles[0] = teles[0].slice(4)
                 }
             }
-            console.log(teles);
 
             var mecard_telemovel
             var mecard_escritorio
@@ -87,13 +86,11 @@ const Scanner = ({ navigation }) => {
                     mecard_escritorio = teles[j];
                 }
             }
-
-            console.log(mecard_escritorio);
-            console.log(mecard_telemovel);
-            console.log(mecard_email);
         }
+
+
         if (arr.includes('BEGIN:VCARD')) {
-            console.log('VCARD')
+            console.log('ENTROU NO ALERTA - VCARD')
             Alert.alert(
                 "Contacto Detectado!",
                 "",
@@ -108,7 +105,7 @@ const Scanner = ({ navigation }) => {
                 ]
             );
         } else if (arr.includes('MECARD')) {
-            console.log('MECARD')
+            console.log('ENTROU NO ALERTA - MECARD')
             Alert.alert(
                 "Contacto Detectado!",
                 "",

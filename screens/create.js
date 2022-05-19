@@ -84,12 +84,12 @@ const Create = ({ navigation }) => {
                 ]
             );
             console.log(error)
-            console.log(radioButtons)
         });
     }
 
     return (
         <SafeAreaView style={{ flex: 1, maxWidth: '95%', }}>
+            <Text style={styles.inputHeader}>Username:</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeUsername}
@@ -97,6 +97,7 @@ const Create = ({ navigation }) => {
                 placeholder="Username"
             />
             <Text style={styles.obrigatorio}>Obrigatório</Text>
+            <Text style={styles.inputHeader}>E-mail:</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeEmail}
@@ -105,7 +106,8 @@ const Create = ({ navigation }) => {
                 placeholder="E-mail"
             />
             <Text style={styles.obrigatorio}>Obrigatório</Text>
-            <View style={{ display: 'flex', flexDirection: 'row', width: '102%' }}>
+            <Text style={styles.inputHeader}>Nome:</Text>
+            <View style={{ display: 'flex', flexDirection: 'row', width: '102%', marginTop: -11 }}>
                 <TextInput
                     style={styles.input2}
                     onChangeText={onChangeNome}
@@ -119,7 +121,8 @@ const Create = ({ navigation }) => {
                     placeholder="Apelido"
                 />
             </View>
-            <View style={{ display: 'flex', flexDirection: 'row', width: '102%' }}>
+            <Text style={styles.inputHeader}>Contactos:</Text>
+            <View style={{ display: 'flex', flexDirection: 'row', width: '102%', marginTop: -11 }}>
                 <TextInput
                     style={styles.input2}
                     onChangeText={onChangeTelemovel}
@@ -136,13 +139,14 @@ const Create = ({ navigation }) => {
                 />
             </View>
             <View style={styles.inputTipo}>
-                <Text>Tipo:</Text>
+                <Text style={{fontWeight:'bold'}}>Tipo:</Text>
                 <RadioGroup
                     layout="row"
                     radioButtons={radioButtons}
                     onPress={onPressRadioButton}
                 />
             </View>
+            <Text style={styles.inputHeader}>Notas:</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeNotas}
@@ -163,9 +167,17 @@ const Create = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    inputHeader: {
+        paddingTop: 7,
+        marginLeft: 14,
+        marginBottom: 3,
+        fontWeight: 'bold',
+    },
     input: {
         height: 40,
-        margin: 12,
+        marginRight: 12,
+        marginBottom: 12,
+        marginLeft: 12,
         borderWidth: 1,
         padding: 10,
         width: '100%',
@@ -193,8 +205,7 @@ const styles = StyleSheet.create({
         color: 'red',
     },
     inputTipo: {
-        margin: 12,
-        padding: 10,
+        margin: 14,
         flexDirection: 'row',
         alignItems: 'center',
         alignContent: 'center',
@@ -203,7 +214,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
-        paddingTop:15,
+        paddingTop: 15,
     },
 });
 

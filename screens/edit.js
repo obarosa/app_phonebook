@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f2f2f2',
-        maxWidth: '95%'
+        maxWidth: '95%',
     },
     contactsWrapper: {
         marginVertical: 10,
