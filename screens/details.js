@@ -72,7 +72,7 @@ const Details = ({ navigation, route }) => {
                     <View style={styles.separatorLines}></View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15, }}>
-                            Número Telemóvel:
+                            Nº Telemóvel:
                         </Text>
                         <Text style={{ marginLeft: 10, }}>{route.params.telemovel}</Text>
                         {!route.params.telemovel ? (<Text>{""}</Text>) :
@@ -104,7 +104,7 @@ const Details = ({ navigation, route }) => {
                     <View style={styles.separatorLines}></View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15, }}>
-                            Número Casa:
+                            Nº Casa:
                         </Text>
                         <Text style={{ marginLeft: 10, }}>{route.params.telefone}</Text>
                         {!route.params.telefone ? (<Text>{""}</Text>) :

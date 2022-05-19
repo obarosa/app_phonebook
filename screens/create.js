@@ -1,9 +1,25 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Image, Alert } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import { Link } from '@react-navigation/native';
-
+import RadioGroup from 'react-native-radio-buttons-group';
 import api from '../services/fetchcontacts';
+
+const radioButtonsData = [{
+    id: '1',
+    label: "Nenhum",
+    value: "nenhum",
+    selected: true
+}, {
+    id: '2',
+    label: "VIP",
+    value: "vip",
+    selected: false
+}, {
+    id: '3',
+    label: "Lista Negra",
+    value: "lista_negra",
+    selected: false
+}]
 
 const Create = ({ navigation }) => {
 
@@ -13,14 +29,24 @@ const Create = ({ navigation }) => {
     const [email, onChangeEmail] = useState('');
     const [telemovel, onChangeTelemovel] = useState('');
     const [escritorio, onChangeEscritorio] = useState('');
-    const [tipo, setTipo] = useState("Nenhum");
+    const [radioButtons, setRadioButtons] = useState(radioButtonsData)
     const [grupo] = useState("Nenhum");
     const [notas, onChangeNotas] = useState('');
 
     const [usarNmrTelemovel] = useState(0);
     const [usarNmrEscritorio] = useState(0);
 
+    function onPressRadioButton(radioButtonsArray) {
+        setRadioButtons(radioButtonsArray);
+    }
+
     const postContacto = () => {
+        var valorSelect
+        for (let i = 0; i < radioButtons.length; i++) {
+            if (radioButtons[i].selected == true) {
+                valorSelect = radioButtons[i].value;
+            }
+        }
         api.post("/api/dashboard/admin/save", {
             username,
             firstName: nome,
@@ -28,7 +54,7 @@ const Create = ({ navigation }) => {
             email,
             nmrTelemovel: telemovel,
             nmrEscritorio: escritorio,
-            tipo,
+            tipo: valorSelect,
             grupo,
             usaNmrTelemovel: usarNmrTelemovel,
             usaNmrTlfEscrt: usarNmrEscritorio,
@@ -46,6 +72,19 @@ const Create = ({ navigation }) => {
                 ]
             );
             console.log('DADOS ENVIADOS COM ALERTA');
+        }).catch(function (error) {
+            Alert.alert(
+                "Contacto NÃO adicionado",
+                "Preencha os dados corretamente!",
+                [
+                    {
+                        text: "Voltar",
+                        style: "cancel"
+                    }
+                ]
+            );
+            console.log(error)
+            console.log(radioButtons)
         });
     }
 
@@ -98,14 +137,11 @@ const Create = ({ navigation }) => {
             </View>
             <View style={styles.inputTipo}>
                 <Text>Tipo:</Text>
-                <Picker
-                    selectedValue={tipo}
-                    style={{ height: 40, width: 150 }}
-                    onValueChange={(itemValue, itemIndex) => setTipo(itemValue)}>
-                    <Picker.Item label="Nenhum" value="nenhum" />
-                    <Picker.Item label="VIP" value="vip" />
-                    <Picker.Item label="Lista Negra" value="lista_negra" />
-                </Picker>
+                <RadioGroup
+                    layout="row"
+                    radioButtons={radioButtons}
+                    onPress={onPressRadioButton}
+                />
             </View>
             <TextInput
                 style={styles.input}
@@ -116,10 +152,12 @@ const Create = ({ navigation }) => {
                 placeholder="Notas"
             />
             <Button title="Adicionar Contacto" onPress={() => postContacto()} />
-            <Link to={{ screen: 'Scanner' }}>
-                <Image style={styles.imgQrCode}
-                    source={require('../src/imgs/qr-scan-regular-24.png')} />
-            </Link>
+            <View style={styles.divQrcode}>
+                <Link to={{ screen: 'Scanner' }}>
+                    <Image
+                        source={require('../src/imgs/qr-scan-regular-24.png')} />
+                </Link>
+            </View>
         </SafeAreaView>
     );
 };
@@ -160,6 +198,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         alignContent: 'center',
+    },
+    divQrcode: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        paddingTop:15,
     },
 });
 

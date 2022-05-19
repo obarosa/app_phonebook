@@ -72,105 +72,121 @@ const EditScreen = ({ navigation, route }) => {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.contactsWrapper}>
-                <View style={{ paddingHorizontal: 10, maxWidth: '95%' }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, maxWidth: '100%' }}>
+                <View style={{ paddingHorizontal: 10, flex: 1 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, width: 230 }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15, }}>
                             Username:
                         </Text>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeUsername}
-                            value={username}
-                            placeholder="Username"
-                        />
+                        <View style={{ width: '100%' }}>
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={onChangeUsername}
+                                value={username}
+                                placeholder="Username"
+                            />
+                        </View>
                     </View>
                     <View style={styles.separatorLines}></View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, width: 260 }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15, }}>
                             E-mail:
                         </Text>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeEmail}
-                            value={email}
-                            keyboardType='email-address'
-                            placeholder="Email"
-                        />
+                        <View style={{ width: '100%' }}>
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={onChangeEmail}
+                                value={email}
+                                keyboardType='email-address'
+                                placeholder="Email"
+                            />
+                        </View>
                     </View>
                     <View style={styles.separatorLines}></View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, width: 200 }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15, }}>
                             Primeiro Nome:
                         </Text>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeNome}
-                            value={nome}
-                            placeholder="Primeiro Nome"
-                        />
+                        <View style={{ width: '100%' }}>
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={onChangeNome}
+                                value={nome}
+                                placeholder="Primeiro Nome"
+                            />
+                        </View>
                     </View>
                     <View style={styles.separatorLines}></View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, width: 255 }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15, }}>
                             Apelido:
                         </Text>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeApelido}
-                            value={apelido}
-                            placeholder="Apelido"
-                        />
+                        <View style={{ width: '100%' }}>
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={onChangeApelido}
+                                value={apelido}
+                                placeholder="Apelido"
+                            />
+                        </View>
                     </View>
                     <View style={styles.separatorLines}></View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, width: 215 }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15, }}>
                             Nº Telemóvel:
                         </Text>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeTelemovel}
-                            value={telemovel}
-                            keyboardType='number-pad'
-                            placeholder="Nº Telemóvel"
-                        />
+                        <View style={{ width: '100%' }}>
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={onChangeTelemovel}
+                                value={telemovel}
+                                keyboardType='number-pad'
+                                placeholder="Nº Telemóvel"
+                            />
+                        </View>
                     </View>
                     <View style={styles.separatorLines}></View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, width: 220 }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15, }}>
                             Nº Escritório:
                         </Text>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeEscritorio}
-                            value={escritorio}
-                            keyboardType='number-pad'
-                            placeholder="Nº Telefone Escritório"
-                        />
+                        <View style={{ width: '100%' }}>
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={onChangeEscritorio}
+                                value={escritorio}
+                                keyboardType='number-pad'
+                                placeholder="Nº Telefone Escritório"
+                            />
+                        </View>
                     </View>
                     <View style={styles.separatorLines}></View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, width: 255 }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15, }}>
                             Nº Casa:
                         </Text>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeTelefone}
-                            value={telefone}
-                            keyboardType='number-pad'
-                            placeholder="Nº Telefone Casa"
-                        />
+                        <View style={{ width: '100%' }}>
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={onChangeTelefone}
+                                value={telefone}
+                                keyboardType='number-pad'
+                                placeholder="Nº Telefone Casa"
+                            />
+                        </View>
                     </View>
                     <View style={styles.separatorLines}></View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, width: 270 }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15, }}>
                             Notas:
                         </Text>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeNotas}
-                            value={notas}
-                            placeholder="Notas"
-                        />
+                        <View style={{ width: '100%' }}>
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={onChangeNotas}
+                                value={notas}
+                                placeholder="Notas"
+                            />
+                        </View>
                     </View>
                     <View style={styles.separatorLines}></View>
                     <View style={styles.fixToText}>
@@ -191,10 +207,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f2f2f2',
+        maxWidth: '95%'
     },
     contactsWrapper: {
         marginVertical: 10,
-        marginHorizontal: 5,
         padding: 10,
     },
     separatorLines: {
@@ -211,7 +227,6 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         marginLeft: 10,
         padding: 5,
-        width: '60%',
     },
 });
 

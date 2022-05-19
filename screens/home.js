@@ -3,16 +3,28 @@ import {
     View, Image, Text, SafeAreaView, TextInput, StyleSheet,
     Linking, TouchableHighlight, FlatList, RefreshControl
 } from 'react-native';
-import { Link } from '@react-navigation/native';
+import { Link, useIsFocused } from '@react-navigation/native';
 
 import api from '../services/fetchcontacts';
-
 
 const Home = ({ navigation }) => {
     const [filterdData, setfilterdData] = useState([]);
     const [masterData, setmasterData] = useState([]);
     const [search, setSearch] = useState('');
     const [refreshing, setRefreshing] = useState(false);
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        if (isFocused) {
+            api.get("/api/apiappphonebook").then(function (response) {
+                // console.log(response.data);
+                setfilterdData(response.data);
+                setmasterData(response.data)
+            }).catch(function (response) {
+                console.log(response);
+            });
+        }
+    }, [isFocused]);
 
     const getContacts = () => {
         api.get("/api/apiappphonebook").then(function (response) {
@@ -23,15 +35,6 @@ const Home = ({ navigation }) => {
             console.log(response);
         });
     }
-    useEffect(() => {
-        api.get("/api/apiappphonebook").then(function (response) {
-            // console.log(response.data);
-            setfilterdData(response.data);
-            setmasterData(response.data)
-        }).catch(function (response) {
-            console.log(response);
-        });
-    }, []);
 
     const searchFilter = (text) => {
         if (text) {

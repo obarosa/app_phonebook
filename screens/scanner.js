@@ -46,6 +46,7 @@ const Scanner = ({ navigation }) => {
             console.log(email);
             console.log(telemovel);
             console.log(escritorio);
+            console.log(arr);
         }
 
         // MECARD
