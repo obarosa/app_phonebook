@@ -26,6 +26,7 @@ const CreateVcard = ({ navigation, route }) => {
     const [nome, onChangeNome] = useState(route.params.priNome);
     const [apelido, onChangeApelido] = useState(route.params.apelido);
     const [email, onChangeEmail] = useState(route.params.email);
+    const [empresa, onChangeEmpresa] = useState(route.params.empresa);
     const [telemovel, onChangeTelemovel] = useState(route.params.telemovel);
     const [escritorio, onChangeEscritorio] = useState(route.params.escritorio);
     const [radioButtons, setRadioButtons] = useState(radioButtonsData)
@@ -51,6 +52,7 @@ const CreateVcard = ({ navigation, route }) => {
             firstName: nome,
             lastName: apelido,
             email,
+            empresa,
             nmrTelemovel: telemovel,
             nmrEscritorio: escritorio,
             tipo: valorSelect,
@@ -93,7 +95,14 @@ const CreateVcard = ({ navigation, route }) => {
                 placeholder="E-mail"
             />
             <Text style={styles.obrigatorio}>Obrigatório</Text>
-            <Text style={styles.inputHeader}>Nome:</Text>
+            <Text style={styles.inputHeader}>Empresa:</Text>
+            <TextInput
+                style={styles.input}
+                onChangeText={onChangeEmpresa}
+                value={empresa}
+                placeholder="Empresa"
+            />
+            <Text style={styles.inputHeader2}>Nome:</Text>
             <View style={{ display: 'flex', flexDirection: 'row', width: '102%' }}>
                 <TextInput
                     style={styles.input2}
@@ -108,7 +117,7 @@ const CreateVcard = ({ navigation, route }) => {
                     placeholder="Apelido"
                 />
             </View>
-            <Text style={styles.inputHeader}>Contactos:</Text>
+            <Text style={styles.inputHeader2}>Contactos:</Text>
             <View style={{ display: 'flex', flexDirection: 'row', width: '102%' }}>
                 <TextInput
                     style={styles.input2}
@@ -160,6 +169,11 @@ const styles = StyleSheet.create({
         marginBottom: -8,
         fontWeight: 'bold',
     },
+    inputHeader2: {
+        marginLeft: 14,
+        marginBottom: -8,
+        fontWeight: 'bold',
+    },
     input: {
         height: 40,
         margin: 12,
@@ -190,7 +204,8 @@ const styles = StyleSheet.create({
         color: 'red',
     },
     inputTipo: {
-        margin: 14,
+        marginRight:14,
+        marginLeft:14,
         flexDirection: 'row',
         alignItems: 'center',
         alignContent: 'center',

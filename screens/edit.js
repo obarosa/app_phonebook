@@ -9,12 +9,13 @@ const EditScreen = ({ navigation, route }) => {
     const [nome, onChangeNome] = useState(route.params.prinome);
     const [apelido, onChangeApelido] = useState(route.params.apelido);
     const [email, onChangeEmail] = useState(route.params.email);
+    const [empresa, onChangeEmpresa] = useState(route.params.empresa);
     const [telemovel, onChangeTelemovel] = useState(route.params.telemovel);
     const [escritorio, onChangeEscritorio] = useState(route.params.escritorio);
     const [telefone, onChangeTelefone] = useState(route.params.telefone);
     const [notas, onChangeNotas] = useState(route.params.notas);
-
-    const [tipo, setTipo] = useState("Nenhum");
+    const [favorito] = useState(route.params.favorito)
+    const [tipo] = useState("Nenhum");
     const [grupo] = useState("Nenhum");
     const [usarNmrTelemovel] = useState(0);
     const [usarNmrEscritorio] = useState(0);
@@ -50,11 +51,13 @@ const EditScreen = ({ navigation, route }) => {
             pri_nome: nome,
             apelido,
             email,
+            empresa,
             nmr_telemovel: telemovel,
             nmr_escritorio: escritorio,
             nmr_casa: telefone,
             tipo,
             grupo,
+            favorito,
             usaNmrTelemovel: usarNmrTelemovel,
             usaNmrTlfEscrt: usarNmrEscritorio,
             notas,
@@ -98,6 +101,20 @@ const EditScreen = ({ navigation, route }) => {
                                 value={email}
                                 keyboardType='email-address'
                                 placeholder="Email"
+                            />
+                        </View>
+                    </View>
+                    <View style={styles.separatorLines}></View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, width: 245 }}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 15, }}>
+                            Empresa:
+                        </Text>
+                        <View style={{ width: '100%' }}>
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={onChangeEmpresa}
+                                value={empresa}
+                                placeholder="Empresa"
                             />
                         </View>
                     </View>

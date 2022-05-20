@@ -1,9 +1,28 @@
-import React from 'react';
-import { StyleSheet, Text, ScrollView, View, TouchableHighlight, Linking, Image, Button, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, ScrollView, View, TouchableHighlight, Linking, Image, Button, Alert, Modal, Pressable } from 'react-native';
 import { Link } from '@react-navigation/native';
+import QRCode from "react-native-qrcode-svg";
 import api from '../services/fetchcontacts';
 
 const Details = ({ navigation, route }) => {
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [vcardUsername] = useState(route.params.username);
+    const [vcardPrinome] = useState(route.params.prinome);
+    const [vcardTelemovel] = useState(route.params.telemovel);
+
+    console.log(vcardTelemovel)
+    const getVcardTemplate = () => `
+BEGIN:VCARD
+VERSION:3.0
+FN:${vcardUsername}
+N:${route.params.apelido};${vcardPrinome};;;
+ORG:${route.params.empresa}
+TEL;CELL:${vcardTelemovel}
+TEL;TYPE=WORK:${route.params.escritorio}
+EMAIL:${route.params.email}
+END:VCARD
+`
 
     const confirmDelete = () =>
         Alert.alert(
@@ -54,6 +73,13 @@ const Details = ({ navigation, route }) => {
                                 source={require('../src/imgs/mail-send-regular-24.png')}
                             />
                         </TouchableHighlight>
+                    </View>
+                    <View style={styles.separatorLines}></View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, }}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 15, }}>
+                            Empresa:
+                        </Text>
+                        <Text style={{ marginLeft: 10, }}>{route.params.empresa}</Text>
                     </View>
                     <View style={styles.separatorLines}></View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, }}>
@@ -131,12 +157,45 @@ const Details = ({ navigation, route }) => {
                             onPress={() => confirmDelete()}
                             color="red"
                         />
-                        <TouchableHighlight style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', marginTop:10}}>
-                            <Link to={{ screen: 'Edit', params: { id: route.params.id, username: route.params.username, email: route.params.email, prinome: route.params.prinome, apelido: route.params.apelido, telemovel: route.params.telemovel, escritorio: route.params.escritorio, telefone: route.params.telefone, notas: route.params.notas } }}>
-                                <Text style={{ fontSize: 18, color:"green" }}>Editar</Text>
+                        <TouchableHighlight style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', marginTop: 10 }}>
+                            <Link to={{ screen: 'Edit', params: { id: route.params.id, username: route.params.username, email: route.params.email, empresa: route.params.empresa, prinome: route.params.prinome, apelido: route.params.apelido, telemovel: route.params.telemovel, escritorio: route.params.escritorio, telefone: route.params.telefone, notas: route.params.notas, favorito: route.params.favorito } }}>
+                                <Text style={{ fontSize: 18, color: "green" }}>Editar</Text>
                             </Link>
                         </TouchableHighlight>
                     </View>
+                    <Pressable
+                        style={[styles.button, styles.buttonOpen]}
+                        onPress={() => setModalVisible(true)}
+                    >
+                        <Image
+                            style={{ marginLeft: 10, }}
+                            source={require('../src/imgs/qr-regular-24.png')}
+                        />
+                    </Pressable>
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => {
+                            Alert.alert("Modal has been closed.");
+                            setModalVisible(!modalVisible);
+                        }}
+                    >
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <QRCode
+                                    value={getVcardTemplate()}
+                                    size={200}
+                                />
+                                <Pressable
+                                    style={[styles.button, styles.buttonClose]}
+                                    onPress={() => setModalVisible(!modalVisible)}
+                                >
+                                    <Text style={styles.textStyle}>Close</Text>
+                                </Pressable>
+                            </View>
+                        </View>
+                    </Modal>
                 </View>
             </View>
         </ScrollView>
@@ -163,6 +222,50 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         marginTop: 15,
     },
+    //Modal
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        borderRadius: 10,
+        padding: 7,
+        marginTop: 15,
+        marginBottom: -20,
+        elevation: 2,
+    },
+    // buttonOpen: {
+    //     backgroundColor: "#F194FF",
+    // },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center",
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    }
 });
 
 export default Details;

@@ -39,14 +39,15 @@ const Home = ({ navigation }) => {
     const searchFilter = (text) => {
         if (text) {
             const newData = masterData.filter((item) => {
-                const itemData = item.username ?
-                    item.username.toUpperCase()
-                    : ''.toUpperCase();
+                const itemData = (item.username + item.empresa + item.email + item.nmr_telemovel + item.nmr_escritorio + item.nmr_casa).toUpperCase();
                 const textData = text.toUpperCase();
                 return itemData.indexOf(textData) > -1;
             });
             setfilterdData(newData);
             setSearch(text);
+            console.log(newData);
+            console.log('and Text:')
+            console.log(text);
         } else {
             setfilterdData(masterData);
             setSearch(text);
@@ -95,14 +96,8 @@ const Home = ({ navigation }) => {
                             </TouchableHighlight>
                             )
                         }
-                        {/* <TouchableHighlight onPress={() => { Linking.openURL(`tel:${item.nmr_escritorio}`); }}>
-                            <Image
-                                style={styles.tinyLogo}
-                                source={require('../src/imgs/phone-solid-24.png')}
-                            />
-                        </TouchableHighlight> */}
                         <TouchableHighlight>
-                            <Link to={{ screen: 'Details', params: { id: item.id, username: item.username, email: item.email, prinome: item.pri_nome, apelido: item.apelido, telemovel: item.nmr_telemovel, escritorio: item.nmr_escritorio, telefone: item.nmr_casa, notas: item.notas } }}>
+                            <Link to={{ screen: 'Details', params: { id: item.id, username: item.username, email: item.email, empresa: item.empresa, prinome: item.pri_nome, apelido: item.apelido, telemovel: item.nmr_telemovel, escritorio: item.nmr_escritorio, telefone: item.nmr_casa, notas: item.notas, favorito: item.favorito } }}>
                                 <Image
                                     style={styles.tinyLogoFirst}
                                     source={require('../src/imgs/info-circle-regular-24.png')}

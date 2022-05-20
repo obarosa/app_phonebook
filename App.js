@@ -37,6 +37,11 @@ const MyStack = () => {
           options={{ title: 'Criar Contacto' }}
         />
         <Stack.Screen
+          name="Scanner"
+          component={ScannerScreen}
+          options={{ title: 'Scanner' }}
+        />
+        <Stack.Screen
           name='Vcard'
           component={CreateVcard}
           options={{ title: 'Vcard' }}
@@ -45,11 +50,6 @@ const MyStack = () => {
           name='Mecard'
           component={CreateMecard}
           options={{ title: 'Mecard' }}
-        />
-        <Stack.Screen
-          name="Scanner"
-          component={ScannerScreen}
-          options={{ title: 'Scanner' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

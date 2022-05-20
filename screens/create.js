@@ -27,6 +27,7 @@ const Create = ({ navigation }) => {
     const [nome, onChangeNome] = useState('');
     const [apelido, onChangeApelido] = useState('');
     const [email, onChangeEmail] = useState('');
+    const [empresa, onChangeEmpresa] = useState('');
     const [telemovel, onChangeTelemovel] = useState('');
     const [escritorio, onChangeEscritorio] = useState('');
     const [radioButtons, setRadioButtons] = useState(radioButtonsData)
@@ -52,6 +53,7 @@ const Create = ({ navigation }) => {
             firstName: nome,
             lastName: apelido,
             email,
+            empresa,
             nmrTelemovel: telemovel,
             nmrEscritorio: escritorio,
             tipo: valorSelect,
@@ -88,7 +90,7 @@ const Create = ({ navigation }) => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, maxWidth: '95%', }}>
+        <SafeAreaView style={{ flex: 1, maxWidth: '95%', marginBottom:10}}>
             <Text style={styles.inputHeader}>Username:</Text>
             <TextInput
                 style={styles.input}
@@ -106,7 +108,14 @@ const Create = ({ navigation }) => {
                 placeholder="E-mail"
             />
             <Text style={styles.obrigatorio}>Obrigatório</Text>
-            <Text style={styles.inputHeader}>Nome:</Text>
+            <Text style={styles.inputHeader}>Empresa:</Text>
+            <TextInput
+                style={styles.input}
+                onChangeText={onChangeEmpresa}
+                value={empresa}
+                placeholder="Empresa"
+            />
+            <Text style={styles.inputHeader2}>Nome:</Text>
             <View style={{ display: 'flex', flexDirection: 'row', width: '102%', marginTop: -11 }}>
                 <TextInput
                     style={styles.input2}
@@ -121,7 +130,7 @@ const Create = ({ navigation }) => {
                     placeholder="Apelido"
                 />
             </View>
-            <Text style={styles.inputHeader}>Contactos:</Text>
+            <Text style={styles.inputHeader2}>Contactos:</Text>
             <View style={{ display: 'flex', flexDirection: 'row', width: '102%', marginTop: -11 }}>
                 <TextInput
                     style={styles.input2}
@@ -173,6 +182,11 @@ const styles = StyleSheet.create({
         marginBottom: 3,
         fontWeight: 'bold',
     },
+    inputHeader2: {
+        marginLeft: 14,
+        marginBottom: 3,
+        fontWeight: 'bold',
+    },
     input: {
         height: 40,
         marginRight: 12,
@@ -205,7 +219,8 @@ const styles = StyleSheet.create({
         color: 'red',
     },
     inputTipo: {
-        margin: 14,
+        marginRight:14,
+        marginLeft:14,
         flexDirection: 'row',
         alignItems: 'center',
         alignContent: 'center',

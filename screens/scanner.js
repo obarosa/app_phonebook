@@ -24,6 +24,11 @@ const Scanner = ({ navigation }) => {
             var priNome = username.split(' ')[0]; // First Name
             var apelido = username.split(' ')[1]; // Last Name
             var email = arr.split('\n').find(d => d.includes('EMAIL')).split(':')[1]; // Email
+            var empresa = null;
+            if (arr.split('\n').find(d => d.includes('ORG'))) {
+                empresa = arr.split('\n').find(d => d.includes('ORG')).split(':')[1]; // Empresa
+            }
+
 
             var mobiles = []
             var arrayi = arr.split('\n')
@@ -46,7 +51,7 @@ const Scanner = ({ navigation }) => {
                 }
             }
 
-            console.log(arr);
+            console.log(data);
         }
 
         // MECARD
@@ -88,7 +93,6 @@ const Scanner = ({ navigation }) => {
             }
         }
 
-
         if (arr.includes('BEGIN:VCARD')) {
             console.log('ENTROU NO ALERTA - VCARD')
             Alert.alert(
@@ -101,7 +105,7 @@ const Scanner = ({ navigation }) => {
                         onPress: () => console.log("Cancel Pressed"),
                         style: "cancel"
                     },
-                    { text: "Criar Contacto", onPress: () => navigation.navigate('Vcard', { username: `${[username]}`, priNome: `${[priNome]}`, apelido: `${[apelido]}`, email: `${[email]}`, telemovel: `${[telemovel]}`, escritorio: `${[escritorio]}` }) }
+                    { text: "Criar Contacto", onPress: () => navigation.navigate('Vcard', { username: `${[username]}`, priNome: `${[priNome]}`, apelido: `${[apelido]}`, email: `${[email]}`, empresa: `${[empresa]}`, telemovel: `${[telemovel]}`, escritorio: `${[escritorio]}` }) }
                 ]
             );
         } else if (arr.includes('MECARD')) {
