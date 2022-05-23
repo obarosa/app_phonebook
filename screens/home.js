@@ -7,7 +7,7 @@ import { Link, useIsFocused } from '@react-navigation/native';
 
 import api from '../services/fetchcontacts';
 
-const Home = ({ navigation }) => {
+const Home = () => {
     const [filterdData, setfilterdData] = useState([]);
     const [masterData, setmasterData] = useState([]);
     const [search, setSearch] = useState('');
@@ -45,9 +45,6 @@ const Home = ({ navigation }) => {
             });
             setfilterdData(newData);
             setSearch(text);
-            console.log(newData);
-            console.log('and Text:')
-            console.log(text);
         } else {
             setfilterdData(masterData);
             setSearch(text);
@@ -138,7 +135,7 @@ const Home = ({ navigation }) => {
                     />
                     <Link to={{ screen: 'Create' }} style={{ alignSelf: 'center', marginRight: 20 }}>
                         <Image style={{ width: 35, height: 35 }}
-                            source={require('../src/imgs/user-plus-solid-24.png')} />
+                            source={require('../src/imgs/user-plus-regular-24.png')} />
                     </Link>
                 </View>
                 <FlatList

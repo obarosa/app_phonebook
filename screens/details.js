@@ -11,19 +11,6 @@ const Details = ({ navigation, route }) => {
     const [vcardPrinome] = useState(route.params.prinome);
     const [vcardTelemovel] = useState(route.params.telemovel);
 
-    console.log(vcardTelemovel)
-    const getVcardTemplate = () => `
-BEGIN:VCARD
-VERSION:3.0
-FN:${vcardUsername}
-N:${route.params.apelido};${vcardPrinome};;;
-ORG:${route.params.empresa}
-TEL;CELL:${vcardTelemovel}
-TEL;TYPE=WORK:${route.params.escritorio}
-EMAIL:${route.params.email}
-END:VCARD
-`
-
     const confirmDelete = () =>
         Alert.alert(
             "Pretende eliminar este Contacto?",
@@ -184,7 +171,17 @@ END:VCARD
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
                                 <QRCode
-                                    value={getVcardTemplate()}
+                                    value={[
+                                        { data: `BEGIN:VCARD\n` },
+                                        { data: 'VERSION:3.0\n' },
+                                        { data: `FN:${vcardUsername}\n` },
+                                        { data: `N:${route.params.apelido};${vcardPrinome};;;\n` },
+                                        { data: `ORG:${route.params.empresa}\n` },
+                                        { data: `TEL;CELL:${vcardTelemovel}\n` },
+                                        { data: `TEL;TYPE=WORK:${route.params.escritorio}\n` },
+                                        { data: `EMAIL:${route.params.email}\n` },
+                                        { data: `END:VCARD` }
+                                    ]}
                                     size={200}
                                 />
                                 <Pressable

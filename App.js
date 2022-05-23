@@ -10,6 +10,8 @@ import ScannerScreen from './screens/scanner';
 import CreateVcard from './screens/qrcode/vcard';
 import CreateMecard from './screens/qrcode/mecard';
 
+import ModalHeader from './components/modal_header';
+
 const Stack = createNativeStackNavigator();
 
 const MyStack = () => {
@@ -19,14 +21,17 @@ const MyStack = () => {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: 'PhoneBook' }}
+          options={{
+            title: 'PhoneBook',
+            headerRight: () => (<ModalHeader />),
+          }}
         />
         <Stack.Screen
           name="Details"
           component={DetailsScreen}
           options={{ title: 'Detalhes' }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Edit"
           component={EditScreen}
           options={{ title: 'Editar Contacto' }}
