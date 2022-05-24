@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Image, View, Text, Modal, Pressable, TextInput, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 
 const ModalHeader = () => {
     const [modalVisible, setModalVisible] = useState(false);
-    const [myApi, setMyApi] = useState(null);
+    const [myApi, setMyApi] = useState('http://192.168.150.27:9999/');
 
-    const storeData = async (value) => {
+    const closeModal = () => {
+        setModalVisible(!modalVisible);
+        Alert.alert('As alterações não foram guardadas.')
+    }
+
+    const storeData = async () => {
         try {
-            await AsyncStorage.setItem('@storage_Key', value)
-            setMyApi(value)
-            console.log('THEN do STORE', value)
+            await AsyncStorage.setItem("MyApi", myApi)
+            console.log('THEN do STORE', myApi)
+            Alert.alert('Alterações efetuadas!', setModalVisible(!modalVisible))
 
         } catch (e) {
             console.log('CATCH do STORE')
@@ -21,14 +27,20 @@ const ModalHeader = () => {
 
     const getData = async () => {
         try {
-            const value = await AsyncStorage.getItem('@storage_Key')
+            const value = await AsyncStorage.getItem("MyApi")
             console.log('THEN do GET', value)
-            Alert.alert('Alterações efetuadas!', setModalVisible(!modalVisible))
+            if (value !== null) {
+                setMyApi(value)
+            }
 
         } catch (e) {
             console.log('CATCH do GET', e)
         }
     }
+
+    useEffect(() => {
+        getData()
+    }, [])
 
     return (
         <View style={styles.centeredView}>
@@ -47,19 +59,19 @@ const ModalHeader = () => {
                         <TextInput
                             style={styles.input}
                             value={myApi}
-                            onChangeText={(value) => storeData(value)}
+                            onChangeText={(text) => setMyApi(text)}
                             placeholder="Api Url"
                         />
                         <View style={styles.modalFooter}>
                             <Pressable
                                 style={[styles.button, styles.buttonClose]}
-                                onPress={() => setModalVisible(!modalVisible)}
+                                onPress={() => closeModal()}
                             >
                                 <Text style={styles.textStyle}>Close</Text>
                             </Pressable>
                             <Pressable
                                 style={[styles.button, styles.buttonOpen]}
-                                onPress={() => getData(this)}
+                                onPress={() => storeData()}
                             >
                                 <Text style={styles.textStyle}>Alterar</Text>
                             </Pressable>

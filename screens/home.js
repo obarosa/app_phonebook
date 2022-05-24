@@ -4,7 +4,6 @@ import {
     Linking, TouchableHighlight, FlatList, RefreshControl
 } from 'react-native';
 import { Link, useIsFocused } from '@react-navigation/native';
-
 import api from '../services/fetchcontacts';
 
 const Home = () => {
