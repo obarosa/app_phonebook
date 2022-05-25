@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
     View, Image, Text, SafeAreaView, TextInput, StyleSheet,
-    Linking, TouchableHighlight, FlatList, RefreshControl
+    Linking, TouchableHighlight, FlatList, RefreshControl, Alert
 } from 'react-native';
 import { Link, useIsFocused } from '@react-navigation/native';
 import api from '../services/fetchcontacts';
@@ -19,8 +19,11 @@ const Home = () => {
                 // console.log(response.data);
                 setfilterdData(response.data);
                 setmasterData(response.data)
-            }).catch(function (response) {
-                console.log(response);
+            }).catch(function (error) {
+                if (!error.status) {
+                    console.log('ESTOU NO CATCH DO NETWORK ERROR',error);
+                    Alert.alert('API incorreta!')
+                  }
             });
         }
     }, [isFocused]);

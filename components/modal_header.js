@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Image, View, Text, Modal, Pressable, TextInput, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
-
+import {Restart} from 'fiction-expo-restart';
 
 const ModalHeader = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [myApi, setMyApi] = useState('http://192.168.150.27:9999/');
+    const isFocused = useIsFocused();
 
     const closeModal = () => {
         setModalVisible(!modalVisible);
         Alert.alert('As alterações não foram guardadas.')
     }
-
     const storeData = async () => {
         try {
             await AsyncStorage.setItem("MyApi", myApi)
             console.log('THEN do STORE', myApi)
-            Alert.alert('Alterações efetuadas!', setModalVisible(!modalVisible))
+            axios.defaults.baseURL = myApi;
+            console.log('THEN do STORE em ASYNC', axios.defaults.baseURL)
+            Alert.alert('Alterações efetuadas!', Restart())
+
 
         } catch (e) {
             console.log('CATCH do STORE')
@@ -27,7 +31,7 @@ const ModalHeader = () => {
 
     const getData = async () => {
         try {
-            const value = await AsyncStorage.getItem("MyApi")
+            var value = await AsyncStorage.getItem("MyApi")
             console.log('THEN do GET', value)
             if (value !== null) {
                 setMyApi(value)
@@ -39,8 +43,10 @@ const ModalHeader = () => {
     }
 
     useEffect(() => {
-        getData()
-    }, [])
+        if (isFocused) {
+            getData()
+        }
+    }, [isFocused])
 
     return (
         <View style={styles.centeredView}>
