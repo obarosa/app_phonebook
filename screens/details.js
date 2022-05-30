@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, ScrollView, View, TouchableHighlight, Linking, Image, Button, Alert, Modal, Pressable } from 'react-native';
 import { Link } from '@react-navigation/native';
 import QRCode from "react-native-qrcode-svg";
-import api from '../services/fetchcontacts';
+import axios from 'axios';
 
 const Details = ({ navigation, route }) => {
 
@@ -26,12 +26,15 @@ const Details = ({ navigation, route }) => {
         );
 
     const deleteContact = () => {
-        api.post(`/api/dashboard/admin/delete/${route.params.id}`)
+        axios.post(`/api/dashboard/admin/delete/${route.params.id}`)
             .then(function (response) {
                 Alert.alert('Apagou o Contacto!', '', [{
                     text: "OK", onPress: () => navigation.navigate('Home')
                 }])
             }).catch(function (error) {
+                Alert.alert('Erro ao Apagar o Contacto!', '', [{
+                    text: "OK", onPress: () => navigation.navigate('Home')
+                }])
                 console.log(error)
             })
     }

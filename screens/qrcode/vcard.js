@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Image, Alert } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { Link } from '@react-navigation/native';
-import api from '../../services/fetchcontacts';
+import axios from 'axios';
 
 const radioButtonsData = [{
     id: '1',
@@ -47,7 +47,7 @@ const CreateVcard = ({ navigation, route }) => {
                 valorSelect = radioButtons[i].value;
             }
         }
-        api.post("/api/dashboard/admin/save", {
+        axios.post("/api/dashboard/admin/save", {
             username,
             firstName: nome,
             lastName: apelido,

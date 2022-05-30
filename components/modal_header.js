@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Image, View, Text, Modal, Pressable, TextInput, Alert } from 'react-native';
+import { StyleSheet, Image, View, Text, Modal, Pressable, TextInput, Alert, DevSettings } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
-import {Restart} from 'fiction-expo-restart';
 
 const ModalHeader = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -17,12 +16,9 @@ const ModalHeader = () => {
     const storeData = async () => {
         try {
             await AsyncStorage.setItem("MyApi", myApi)
-            console.log('THEN do STORE', myApi)
             axios.defaults.baseURL = myApi;
             console.log('THEN do STORE em ASYNC', axios.defaults.baseURL)
-            Alert.alert('Alterações efetuadas!', Restart())
-
-
+            Alert.alert('Alterações efetuadas!', '', [{ text: "OK", onPress: () => DevSettings.reload() }])
         } catch (e) {
             console.log('CATCH do STORE')
             console.log(e)

@@ -4,7 +4,7 @@ import {
     Linking, TouchableHighlight, FlatList, RefreshControl, Alert
 } from 'react-native';
 import { Link, useIsFocused } from '@react-navigation/native';
-import api from '../services/fetchcontacts';
+import axios from 'axios';
 
 const Home = () => {
     const [filterdData, setfilterdData] = useState([]);
@@ -15,21 +15,21 @@ const Home = () => {
 
     useEffect(() => {
         if (isFocused) {
-            api.get("/api/apiappphonebook").then(function (response) {
+            axios.get("/api/apiappphonebook").then(function (response) {
                 // console.log(response.data);
                 setfilterdData(response.data);
-                setmasterData(response.data)
+                setmasterData(response.data);
             }).catch(function (error) {
                 if (!error.status) {
-                    console.log('ESTOU NO CATCH DO NETWORK ERROR',error);
+                    console.log('ESTOU NO CATCH DO NETWORK ERROR',axios.defaults.baseURL, error);
                     Alert.alert('API incorreta!')
-                  }
+                }
             });
         }
     }, [isFocused]);
 
     const getContacts = () => {
-        api.get("/api/apiappphonebook").then(function (response) {
+        axios.get("/api/apiappphonebook").then(function (response) {
             // console.log(response.data);
             setfilterdData(response.data);
             setmasterData(response.data)

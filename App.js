@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 import HomeScreen from './screens/home';
 import DetailsScreen from './screens/details';
@@ -13,6 +15,17 @@ import CreateMecard from './screens/qrcode/mecard';
 import ModalHeader from './components/modal_header';
 
 const Stack = createNativeStackNavigator();
+
+const getData = async () => {
+  try {
+      axios.defaults.baseURL = await AsyncStorage.getItem("MyApi")
+      console.log('THEN do GET no FETCH', axios.defaults.baseURL)
+
+  } catch (e) {
+      console.log('CATCH do GET no FETCH', e)
+  }
+}
+getData()
 
 const MyStack = () => {
   return (

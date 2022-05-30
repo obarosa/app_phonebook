@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, ScrollView, View, TextInput, Button, Alert } from 'react-native';
-import api from '../services/fetchcontacts';
+import axios from 'axios';
 
 const EditScreen = ({ navigation, route }) => {
 
@@ -35,7 +35,7 @@ const EditScreen = ({ navigation, route }) => {
         );
 
     const deleteContact = () => {
-        api.post(`/api/dashboard/admin/delete/${route.params.id}`)
+        axios.post(`/api/dashboard/admin/delete/${route.params.id}`)
             .then(function (response) {
                 Alert.alert('Apagou o Contacto!', '', [{
                     text: "OK", onPress: () => navigation.navigate('Home')
@@ -46,7 +46,7 @@ const EditScreen = ({ navigation, route }) => {
     }
 
     const editContacto = () => {
-        api.post(`/api/dashboard/admin/update/${route.params.id}`, {
+        axios.post(`/api/dashboard/admin/update/${route.params.id}`, {
             username,
             pri_nome: nome,
             apelido,
