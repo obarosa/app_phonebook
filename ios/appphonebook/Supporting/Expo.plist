@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>EXUpdatesSDKVersion</key>
-    <string>44.0.0</string>
+    <string>45.0.0</string>
     <key>EXUpdatesEnabled</key>
     <true/>
     <key>EXUpdatesCheckOnLaunch</key>
@@ -11,7 +11,7 @@
     <key>EXUpdatesLaunchWaitMs</key>
     <integer>0</integer>
     <key>EXUpdatesURL</key>
-    <string>https://exp.host/@obarosa/appphonebook</string>
+    <string>https://exp.host/@obarosa/phonebook</string>
     <key>EXUpdatesReleaseChannel</key>
     <string>default</string>
   </dict>

@@ -90,7 +90,7 @@ const Create = ({ navigation }) => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, maxWidth: '95%', marginBottom:10}}>
+        <SafeAreaView style={{ flex: 1, maxWidth: '95%'}}>
             <Text style={styles.inputHeader}>Username:</Text>
             <TextInput
                 style={styles.input}

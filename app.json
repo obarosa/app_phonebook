@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "appphonebook",
+    "name": "Phone Book",
     "icon": "./src/imgs/logo_phonebook.png",
-    "slug": "appphonebook",
+    "slug": "phonebook",
     "ios": {
-      "bundleIdentifier": "com.hlink.appphonebook",
+      "bundleIdentifier": "com.hlink.phonebook",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.hlink.appphonebook",
+      "package": "com.hlink.phonebook",
       "versionCode": 1
     },
     "version": "1.0.0",
