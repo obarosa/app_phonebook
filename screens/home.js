@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    View, Image, Text, SafeAreaView, TextInput, StyleSheet,
+    View, Text, SafeAreaView, TextInput, StyleSheet,
     Linking, TouchableHighlight, FlatList, RefreshControl, Alert
 } from 'react-native';
 import { useListener } from 'react-bus'
@@ -63,47 +63,45 @@ const Home = () => {
 
     const ItemView = ({ item }) => {
         return (
-            <View style={styles.allList}>
-                <View key={item.id}>
-                    <Link style={styles.allList2} to={{ screen: 'Details', params: { id: item.id, username: item.username, email: item.email, prinome: item.pri_nome, apelido: item.apelido, telemovel: item.nmr_telemovel, escritorio: item.nmr_escritorio, telefone: item.nmr_casa, notas: item.notas } }}>
-                        <View style={{ minWidth: 220 }}>
-                            <Text style={styles.listItemContacts}>
-                                <Text style={{ fontSize: 16, fontWeight: 'bold', }}>
-                                    {item.username}{" "}
-                                </Text>
+            <Link to={{ screen: 'Details', params: { id: item.id, username: item.username, email: item.email, prinome: item.pri_nome, apelido: item.apelido, telemovel: item.nmr_telemovel, escritorio: item.nmr_escritorio, telefone: item.nmr_casa, notas: item.notas } }}>
+                <View style={styles.linhaView} key={item.id}>
+                    <View>
+                        <Text>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', }}>
+                                {item.username}{" "}
                             </Text>
-                            <View style={{ flexDirection: 'row', marginTop: 5, zIndex: 100 }}>
-                                <Text style={{ fontSize: 12, color: 'grey' }}>
-                                    {item.nmr_telemovel}{" "}
-                                </Text>
-                                <Text>  </Text>
-                                <Text style={{ fontSize: 12, color: 'grey' }}>
-                                    {item.nmr_escritorio}{" "}
-                                </Text>
-                            </View>
+                        </Text>
+                        <View style={{ flexDirection: 'row', marginTop: 5, zIndex: 100 }}>
+                            <Text style={{ fontSize: 12, color: 'grey' }}>
+                                {item.nmr_telemovel}{" "}
+                            </Text>
+                            <Text>  </Text>
+                            <Text style={{ fontSize: 12, color: 'grey' }}>
+                                {item.nmr_escritorio}{" "}
+                            </Text>
                         </View>
-                        <View style={styles.containerImagens}>
-                            {!item.nmr_telemovel ? (<Text>{""}</Text>) :
-                                (<TouchableHighlight onPress={() => { Linking.openURL(`tel:${item.nmr_telemovel}`); }}>
-                                    <FontAwesomeIcon icon={faMobileScreenButton} color={'#043c84'} style={styles.icon} size={22} />
-                                </TouchableHighlight>
-                                )
-                            }
-                            {!item.nmr_escritorio ? (<Text>{""}</Text>) :
-                                (<TouchableHighlight onPress={() => { Linking.openURL(`tel:${item.nmr_escritorio}`); }}>
-                                    <FontAwesomeIcon icon={faPhone} color={'#043c84'} style={styles.icon} size={22} />
-                                </TouchableHighlight>
-                                )
-                            }
-                            <TouchableHighlight style={styles.boxIcon}>
-                                <Link to={{ screen: 'Details', params: { id: item.id, username: item.username, email: item.email, empresa: item.empresa, prinome: item.pri_nome, apelido: item.apelido, telemovel: item.nmr_telemovel, escritorio: item.nmr_escritorio, telefone: item.nmr_casa, notas: item.notas, favorito: item.favorito } }}>
-                                    <FontAwesomeIcon icon={faCircleInfo} color={'#043c84'} style={{}} size={24} />
-                                </Link>
+                    </View>
+                    <View style={styles.containerImagens}>
+                        {!item.nmr_telemovel ? (<Text>{""}</Text>) :
+                            (<TouchableHighlight onPress={() => { Linking.openURL(`tel:${item.nmr_telemovel}`); }}>
+                                <FontAwesomeIcon icon={faMobileScreenButton} color={'#043c84'} style={styles.icon} size={20} />
                             </TouchableHighlight>
-                        </View>
-                    </Link>
+                            )
+                        }
+                        {!item.nmr_escritorio ? (<Text>{""}</Text>) :
+                            (<TouchableHighlight onPress={() => { Linking.openURL(`tel:${item.nmr_escritorio}`); }}>
+                                <FontAwesomeIcon icon={faPhone} color={'#043c84'} style={styles.icon} size={20} />
+                            </TouchableHighlight>
+                            )
+                        }
+                        <TouchableHighlight style={styles.boxIcon}>
+                            <Link to={{ screen: 'Details', params: { id: item.id, username: item.username, email: item.email, empresa: item.empresa, prinome: item.pri_nome, apelido: item.apelido, telemovel: item.nmr_telemovel, escritorio: item.nmr_escritorio, telefone: item.nmr_casa, notas: item.notas, favorito: item.favorito } }}>
+                                <FontAwesomeIcon icon={faCircleInfo} color={'#043c84'} size={22} />
+                            </Link>
+                        </TouchableHighlight>
+                    </View>
                 </View>
-            </View>
+            </Link>
         )
     }
 
@@ -125,7 +123,7 @@ const Home = () => {
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <View style={{ display: 'flex', flexDirection: 'row', alignSelf: 'center' }}>
+                <View style={{ display: 'flex', flexDirection: 'row', alignSelf: 'center', width: '100%' }}>
                     <TextInput
                         style={styles.textInputStyle}
                         value={search}
@@ -134,7 +132,7 @@ const Home = () => {
                         onChangeText={(text) => searchFilter(text)}
                     />
                     <Link to={{ screen: 'Create' }} style={{ alignSelf: 'auto', justifyContent: 'center', margin: 14 }}>
-                        <FontAwesomeIcon icon={faUserPlus} color={'black'} style={{}} size={30} />
+                        <FontAwesomeIcon icon={faUserPlus} color={'black'} size={30} />
                     </Link>
                 </View>
                 <FlatList
@@ -169,32 +167,30 @@ const styles = StyleSheet.create({
         borderColor: '#009688',
         backgroundColor: 'white',
     },
+    // Linha
+    linhaView: {
+        padding: 10,
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+        flexWrap: "wrap",
+    },
     // Imagens
     containerImagens: {
+        display: 'flex',
         flexDirection: 'row',
+        maxWidth: '100%',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        backgroundColor: 'blue',
     },
     icon: {
         paddingHorizontal: 20,
     },
     boxIcon: {
-        marginTop: 1.5,
+        marginTop: 5,
         marginLeft: 10,
-    },
-    // Linha
-    allList: {
-        display: 'flex',
-        flexDirection: 'row',
-        padding: 10,
-        alignItems: 'center',
-        paddingRight: 20,
-    },
-    allList2: {
-        display:'flex',
-        flexDirection:'row',
-        backgroundColor: 'yellow',
     },
 });
 

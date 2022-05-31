@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Image, Alert } from 'react-native';
+import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Alert } from 'react-native';
 import { Link } from '@react-navigation/native';
 import RadioGroup from 'react-native-radio-buttons-group';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faQrcode } from '@fortawesome/free-solid-svg-icons/faQrcode'
 
 const radioButtonsData = [{
     id: '1',
@@ -90,7 +92,7 @@ const Create = ({ navigation }) => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, maxWidth: '95%'}}>
+        <SafeAreaView style={{ flex: 1, maxWidth: '95%' }}>
             <Text style={styles.inputHeader}>Username:</Text>
             <TextInput
                 style={styles.input}
@@ -148,7 +150,7 @@ const Create = ({ navigation }) => {
                 />
             </View>
             <View style={styles.inputTipo}>
-                <Text style={{fontWeight:'bold'}}>Tipo:</Text>
+                <Text style={{ fontWeight: 'bold' }}>Tipo:</Text>
                 <RadioGroup
                     layout="row"
                     radioButtons={radioButtons}
@@ -167,8 +169,7 @@ const Create = ({ navigation }) => {
             <Button title="Adicionar Contacto" onPress={() => postContacto()} />
             <View style={styles.divQrcode}>
                 <Link to={{ screen: 'Scanner' }}>
-                    <Image
-                        source={require('../src/imgs/qr-scan-regular-24.png')} />
+                    <FontAwesomeIcon icon={faQrcode} size={26} />
                 </Link>
             </View>
         </SafeAreaView>
@@ -219,8 +220,8 @@ const styles = StyleSheet.create({
         color: 'red',
     },
     inputTipo: {
-        marginRight:14,
-        marginLeft:14,
+        marginRight: 14,
+        marginLeft: 14,
         flexDirection: 'row',
         alignItems: 'center',
         alignContent: 'center',

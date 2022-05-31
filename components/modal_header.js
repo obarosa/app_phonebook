@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import { useBus } from 'react-bus'
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faGear } from '@fortawesome/free-solid-svg-icons/faGear'
 
 const ModalHeader = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -88,10 +90,7 @@ const ModalHeader = () => {
             <Pressable
                 onPress={() => setModalVisible(true)}
             >
-                <Image
-                    style={{ width: 26, height: 26 }}
-                    source={require('../src/imgs/cog-regular-24.png')}
-                />
+                <FontAwesomeIcon icon={faGear} style={styles.icon} size={20} />
             </Pressable>
         </View>
     )

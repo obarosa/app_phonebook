@@ -1,15 +1,38 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, ScrollView, View, TouchableHighlight, Linking, Image, Button, Alert, Modal, Pressable } from 'react-native';
+import {
+    StyleSheet, Text, ScrollView, View, TouchableHighlight,
+    Linking, Button, Alert, Modal, Pressable
+} from 'react-native';
 import { Link } from '@react-navigation/native';
 import QRCode from "react-native-qrcode-svg";
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone'
+import { faMobileScreenButton } from '@fortawesome/free-solid-svg-icons/faMobileScreenButton'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope'
+import { faQrcode } from '@fortawesome/free-solid-svg-icons/faQrcode'
 
 const Details = ({ navigation, route }) => {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [vcardUsername] = useState(route.params.username);
-    const [vcardPrinome] = useState(route.params.prinome);
-    const [vcardTelemovel] = useState(route.params.telemovel);
+    const vcardPrinome = vcardUsername.split(' ')[0];
+    var vcardApelido = vcardUsername.split(' ')[1];
+    if (vcardApelido == undefined) {
+        vcardApelido = ''
+    }
+    var vcardEmpresa = route.params.empresa;
+    if (vcardEmpresa == undefined) {
+        vcardEmpresa = ''
+    }
+    var vcardTelemovel = route.params.telemovel;
+    if (vcardTelemovel == null) {
+        vcardTelemovel = ''
+    }
+    var vcardEscritorio = route.params.escritorio;
+    if (vcardEscritorio == null) {
+        vcardEscritorio = ''
+    }
 
     const confirmDelete = () =>
         Alert.alert(
@@ -58,10 +81,7 @@ const Details = ({ navigation, route }) => {
                             {route.params.email}
                         </Text>
                         <TouchableHighlight onPress={() => { Linking.openURL(`mailto:${route.params.email}`); }}>
-                            <Image
-                                style={{ marginLeft: 20, }}
-                                source={require('../src/imgs/mail-send-regular-24.png')}
-                            />
+                            <FontAwesomeIcon icon={faEnvelope} color={'#043c84'} style={{ marginLeft: 15 }} size={22} />
                         </TouchableHighlight>
                     </View>
                     <View style={styles.separatorLines}></View>
@@ -93,10 +113,7 @@ const Details = ({ navigation, route }) => {
                         <Text style={{ marginLeft: 10, }}>{route.params.telemovel}</Text>
                         {!route.params.telemovel ? (<Text>{""}</Text>) :
                             (<TouchableHighlight onPress={() => { Linking.openURL(`tel:${route.params.telemovel}`); }}>
-                                <Image
-                                    style={{ marginLeft: 10, }}
-                                    source={require('../src/imgs/mobile-regular-24.png')}
-                                />
+                                <FontAwesomeIcon icon={faMobileScreenButton} color={'#043c84'} style={{ marginLeft: 10 }} size={22} />
                             </TouchableHighlight>
                             )
                         }
@@ -109,10 +126,7 @@ const Details = ({ navigation, route }) => {
                         <Text style={{ marginLeft: 10, }}>{route.params.escritorio}</Text>
                         {!route.params.escritorio ? (<Text>{""}</Text>) :
                             (<TouchableHighlight onPress={() => { Linking.openURL(`tel:${route.params.escritorio}`); }}>
-                                <Image
-                                    style={{ marginLeft: 10, }}
-                                    source={require('../src/imgs/phone-solid-24.png')}
-                                />
+                                <FontAwesomeIcon icon={faPhone} color={'#043c84'} style={{ marginLeft: 10 }} size={22} />
                             </TouchableHighlight>
                             )
                         }
@@ -125,10 +139,7 @@ const Details = ({ navigation, route }) => {
                         <Text style={{ marginLeft: 10, }}>{route.params.telefone}</Text>
                         {!route.params.telefone ? (<Text>{""}</Text>) :
                             (<TouchableHighlight onPress={() => { Linking.openURL(`tel:${route.params.telefone}`); }}>
-                                <Image
-                                    style={{ marginLeft: 10, }}
-                                    source={require('../src/imgs/phone-solid-24.png')}
-                                />
+                                <FontAwesomeIcon icon={faPhone} color={'#043c84'} style={{ marginLeft: 10 }} size={22} />
                             </TouchableHighlight>
                             )
                         }
@@ -140,7 +151,15 @@ const Details = ({ navigation, route }) => {
                         </Text>
                         <Text style={{ marginLeft: 10, }}>{route.params.notas}</Text>
                     </View>
-                    <View style={styles.separatorLines}></View>
+                    <View style={styles.separatorLines2}></View>
+                    <View style={{ display: 'flex', flexDirection: 'row', marginTop: 15 }}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 15, }}>VCard QRCode:</Text>
+                        <Pressable
+                            onPress={() => setModalVisible(true)}
+                        >
+                            <FontAwesomeIcon icon={faQrcode} color={'#043c84'} style={{ marginLeft: 15 }} size={22} />
+                        </Pressable>
+                    </View>
                     <View style={styles.fixToText}>
                         <Button
                             title="Apagar"
@@ -153,15 +172,6 @@ const Details = ({ navigation, route }) => {
                             </Link>
                         </TouchableHighlight>
                     </View>
-                    <Pressable
-                        style={[styles.button, styles.buttonOpen]}
-                        onPress={() => setModalVisible(true)}
-                    >
-                        <Image
-                            style={{ marginLeft: 10, }}
-                            source={require('../src/imgs/qr-regular-24.png')}
-                        />
-                    </Pressable>
                     <Modal
                         animationType="slide"
                         transparent={true}
@@ -178,10 +188,10 @@ const Details = ({ navigation, route }) => {
                                         { data: `BEGIN:VCARD\n` },
                                         { data: 'VERSION:3.0\n' },
                                         { data: `FN:${vcardUsername}\n` },
-                                        { data: `N:${route.params.apelido};${vcardPrinome};;;\n` },
-                                        { data: `ORG:${route.params.empresa}\n` },
-                                        { data: `TEL;CELL:${vcardTelemovel}\n` },
-                                        { data: `TEL;TYPE=WORK:${route.params.escritorio}\n` },
+                                        { data: `N:${vcardApelido};${vcardPrinome};;;\n` },
+                                        { data: `ORG:${vcardEmpresa}\n` },
+                                        { data: `TEL;TYPE=CELL:${vcardTelemovel}\n` },
+                                        { data: `TEL;TYPE=WORK:${vcardEscritorio}\n` },
                                         { data: `EMAIL:${route.params.email}\n` },
                                         { data: `END:VCARD` }
                                     ]}
@@ -217,6 +227,11 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#c8c8c8',
     },
+    separatorLines2: {
+        height: 0.5,
+        width: '100%',
+        backgroundColor: 'black',
+    },
     fixToText: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
@@ -251,9 +266,6 @@ const styles = StyleSheet.create({
         marginBottom: -20,
         elevation: 2,
     },
-    // buttonOpen: {
-    //     backgroundColor: "#F194FF",
-    // },
     buttonClose: {
         backgroundColor: "#2196F3",
     },

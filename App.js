@@ -40,7 +40,6 @@ const MyStack = () => {
               headerRight: () => (<ModalHeader />),
             }}
           />
-
           <Stack.Screen
             name="Details"
             component={DetailsScreen}
